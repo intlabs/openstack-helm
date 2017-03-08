@@ -95,8 +95,7 @@ spec:
           readinessProbe:
             exec:
               command:
-                - python
-                - /mariadb-readiness.py
+                - /tmp/mariadb-readiness.sh
             initialDelaySeconds: 60
           volumeMounts:
             - name: mycnfd
@@ -111,8 +110,8 @@ spec:
               mountPath: /tmp/peer-finder.py
               subPath: peer-finder.py
             - name: readiness
-              mountPath: /mariadb-readiness.py
-              subPath: readiness.py
+              mountPath: /tmp/mariadb-readiness.sh
+              subPath: readiness.sh
             - name: charsets
               mountPath: /etc/my.cnf.d/charsets.cnf
               subPath: charsets.cnf

@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 # Copyright 2017 The Openstack-Helm Authors.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,18 +13,30 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: mariadb-bin
-data:
-  start.sh: |
-{{ tuple "bin/_start.sh.tpl" . | include "helm-toolkit.template" | indent 4 }}
-  peer-finder.py: |
-{{ tuple "bin/_peer-finder.py.tpl" . | include "helm-toolkit.template" | indent 4 }}
-  readiness.sh: |
-{{ tuple "bin/_readiness.sh.tpl" . | include "helm-toolkit.template" | indent 4 }}
-  bootstrap-db.sh: |
-{{ tuple "bin/_bootstrap-db.sh.tpl" . | include "helm-toolkit.template" | indent 4 }}
-  seed.sh: |
-{{ tuple "bin/_seed.sh.tpl" . | include "helm-toolkit.template" | indent 4 }}
+set -ex
+
+SLEEP_TIMEOUT=3
+
+# loop forever
+while [ 1 ]
+do
+
+    mysql --host=localhost --port="{{ .Values.network.port.mariadb }}" --user=root --password="{{ .Values.database.root_password }}" -e'show databases;'  > /dev/null  2> /dev/null
+
+
+    STATUS=$?
+    if [ $STATUS -eq 0 ]; then
+
+        # mysql is fine and return success
+        /bin/echo "Service OK"
+        exit 0
+    else
+        # mysql service is unavailable and keep looping
+        /bin/echo "Service Unavailable"
+
+    fi
+
+
+    # check x amount of seconds
+    sleep $SLEEP_TIMEOUT
+done
