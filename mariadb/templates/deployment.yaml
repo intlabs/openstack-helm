@@ -95,8 +95,8 @@ spec:
           readinessProbe:
             exec:
               command:
-                - /bin/sh
-                - /tmp/mariadb-readiness.sh
+                - bash
+                - /tmp/readiness.sh
             initialDelaySeconds: 60
           volumeMounts:
             - name: mycnfd
@@ -111,7 +111,7 @@ spec:
               mountPath: /tmp/peer-finder.sh
               subPath: peer-finder.sh
             - name: readiness
-              mountPath: /tmp/mariadb-readiness.sh
+              mountPath: /tmp/readiness.sh
               subPath: readiness.sh
             - name: charsets
               mountPath: /etc/my.cnf.d/charsets.cnf
