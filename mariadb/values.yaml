@@ -52,7 +52,7 @@ resources:
 service_name: mariadb
 
 images:
-  mariadb: quay.io/stackanetes/stackanetes-mariadb:newton
+  mariadb: kolla/ubuntu-binary-mariadb:3.0.2
   pull_policy: IfNotPresent
 
 volume:

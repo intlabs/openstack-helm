@@ -95,6 +95,7 @@ spec:
           readinessProbe:
             exec:
               command:
+                - /bin/sh
                 - /tmp/mariadb-readiness.sh
             initialDelaySeconds: 60
           volumeMounts:
@@ -107,8 +108,8 @@ spec:
               mountPath: /tmp/bootstrap-db.sh
               subPath: bootstrap-db.sh
             - name: peerfinder
-              mountPath: /tmp/peer-finder.py
-              subPath: peer-finder.py
+              mountPath: /tmp/peer-finder.sh
+              subPath: peer-finder.sh
             - name: readiness
               mountPath: /tmp/mariadb-readiness.sh
               subPath: readiness.sh

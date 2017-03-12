@@ -49,7 +49,7 @@ function wait_for_cluster {
             continue
         fi
         # Count number of endpoint separators.
-        ENDPOINTS_CNT=`python /tmp/peer-finder.py mariadb 1 | grep -o ',' | wc -l`
+        ENDPOINTS_CNT=`/tmp/peer-finder.sh mariadb 1 | grep -o ',' | wc -l`
         # TODO(tomasz.paszkowski): Fix a corner case when only one endpoint is on the list.
         # Add +1 for seed node and +1 as first item does not have a separator
         ENDPOINTS_CNT=$(($ENDPOINTS_CNT+2))
