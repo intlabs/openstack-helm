@@ -71,7 +71,7 @@ do
     ips=()
     names=()
 
-    #IP=$(ip addr | grep 'state UP' -A2 | tail -n1 | awk '{print $2}' | cut -f1  -d'/')
+    IP=$(ip addr | grep 'state UP' -A2 | tail -n1 | awk '{print $2}' | cut -f1  -d'/')
 
     while read -r line1; do
 
@@ -104,16 +104,15 @@ do
 
             if [[ $line == *ip* ]]; then
                 # seems like ip key and actual IP on different line
-                # ignore ip key and add actually ip to array
-                # need to find better way of getting ip, release could easily break
-                  for word in $line
+                # ignore ip key and add actual ip to array
+
                   do
                       if [[ ! $word =~ ^.ip.:.* ]]; then
-                       # get current container IP
-                       #if [[ $word == IP ]]; then
+
+                        if [[ $word == IP ]]; then
                             # skip adding current IP to ips list
-                       #     break
-                       #fi
+                            break
+                        fi
 
                         # add ip address to ips list
                         # remove "ip:" from line if it exists
