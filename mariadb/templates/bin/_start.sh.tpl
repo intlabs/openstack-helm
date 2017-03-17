@@ -56,7 +56,7 @@ else
     # to look for
     sleep 30
 
-    export WSREP_OPTIONS=`tmp/peer-finder.sh mariadb 0`
+    export WSREP_OPTIONS=`bash /tmp/peer-finder.sh mariadb 0`
     exec mysqld --defaults-file=/etc/my.cnf \
     --console \
     --bind-address="0.0.0.0" \
